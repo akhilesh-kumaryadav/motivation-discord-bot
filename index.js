@@ -23,8 +23,8 @@ async function getMotivationalQuote() {
         })
     });
     const data = await response.json();
-    if (data.text) {
-        return data.text.trim();
+    if (data.generations[0].text) {
+        return data.generations[0].text.trim();
     } else {
         throw new Error('Failed to get quote: ' + JSON.stringify(data));
     }
