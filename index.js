@@ -32,13 +32,13 @@ async function getMotivationalQuote() {
 
 client.on('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`);
-  
+
     const channel = await client.channels.fetch(process.env.CHANNEL_ID);
-    if(!channel) {
+    if (!channel) {
         console.error('Channel not found');
         return;
     }
-    
+
     try {
         const quote = await getMotivationalQuote();
         channel.send(`🌞 Morning Quote:\n${quote}`);
@@ -53,6 +53,8 @@ client.on('ready', async () => {
         } catch (err) {
             console.error('Error sending morning quote:', err);
         }
+    }, {
+        timezone: 'Asia/Kolkata'
     });
 
     cron.schedule('0 19 * * *', async () => {
@@ -62,8 +64,21 @@ client.on('ready', async () => {
         } catch (err) {
             console.error('Error sending evening quote:', err);
         }
+    }, {
+        timezone: 'Asia/Kolkata'
     });
-  });
+
+    cron.schedule('40 11 * * *', async () => {
+        try {
+            const quote = await getMotivationalQuote();
+            await channel.send(`🌙 Test at 11:40:\n${quote}`);
+        } catch (err) {
+            console.error('Error sending evening quote:', err);
+        }
+    }, {
+        timezone: 'Asia/Kolkata'
+    });
+});
 
 client.login(process.env.DISCORD_TOKEN)
     .then(() => console.log('Bot is online!'))
