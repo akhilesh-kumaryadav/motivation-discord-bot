@@ -41,7 +41,7 @@ client.on('ready', async () => {
 
     try {
         const quote = await getMotivationalQuote();
-        channel.send(`🌞 Morning Quote:\n${quote}`);
+        channel.send(`🌞 Server Up:\n${quote}`);
     } catch (err) {
         console.error('Error sending immediate quote:', err);
     }
@@ -61,17 +61,6 @@ client.on('ready', async () => {
         try {
             const quote = await getMotivationalQuote();
             await channel.send(`🌙 Evening Boost:\n${quote}`);
-        } catch (err) {
-            console.error('Error sending evening quote:', err);
-        }
-    }, {
-        timezone: 'Asia/Kolkata'
-    });
-
-    cron.schedule('40 11 * * *', async () => {
-        try {
-            const quote = await getMotivationalQuote();
-            await channel.send(`🌙 Test at 11:40:\n${quote}`);
         } catch (err) {
             console.error('Error sending evening quote:', err);
         }
